@@ -1,17 +1,18 @@
 const mongoose = require('mongoose')
-
+const config = require('../utils/config')
+const logger = require('../utils/logger')
 mongoose.set('strictQuery', false)
 
-const url = process.env.MONGODB_URL
+const url = config.MONGODB_URL
 
 console.log('connecting to DB', url)
 
 mongoose.connect(url)
   .then(result => {
-    console.log('connected to MongoDB')
+    logger.info('connected to MongoDB')
   })
   .catch(err => {
-    console.log('Failed to connect MongoDB', err.message)
+    logger.error('Failed to connect MongoDB', err.message)
   })
 
 const personSchema = new mongoose.Schema({
